@@ -15,13 +15,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.viewController = [[YSViewController alloc] initWithNibName:@"YSViewController_iPhone" bundle:nil];
-    } else {
-        self.viewController = [[YSViewController alloc] initWithNibName:@"YSViewController_iPad" bundle:nil];
-    }
-    self.window.rootViewController = self.viewController;
+    self.viewController = [[YSViewController alloc] init];
+    UINavigationController *naviController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+    self.window.rootViewController = naviController;
     [self.window makeKeyAndVisible];
     return YES;
 }
