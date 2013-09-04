@@ -19,10 +19,10 @@
     
     [super viewDidLoad];
     
-    YSScrollView *scrollView = [[YSScrollView alloc] initWithFrame:self.view.frame];
-    scrollView.contentSize = self.view.frame.size;
-    scrollView.scrollEnabled = YES;
+    self.title = @"✧Twinkle✧";
     
+    YSScrollView *scrollView = [[YSScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height + 1);
     [self.view addSubview:scrollView];
     
     self.view.backgroundColor = [UIColor lightGrayColor];

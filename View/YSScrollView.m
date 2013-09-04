@@ -8,18 +8,21 @@
 
 #import "YSScrollView.h"
 #import "NSObject+DelayedPerforming.h"
+#import <QuartzCore/QuartzCore.h>
 
-#define kTopBarHeight (20+44) //statusbar + navigationbar = 64
+#define isIOS6OrEarlier ([[[UIDevice currentDevice] systemVersion] floatValue] <= 6.1)
+
+#define kTopBarHeight ((isIOS6OrEarlier) ? 0 : (20+44)) //statusbar + navigationbar = 64
 #define kTriggerAreaHeight 70
 #define kPulldownOffset -(kTopBarHeight + kTriggerAreaHeight) //-134
 
 #define kFadeDistance 3
-#define kFirstAppearanceOffset -111
-#define kSecondAppearanceOffset -116
-#define kThirdAppearanceOffset -122
+#define kFirstAppearanceOffset -(kTopBarHeight + 47)
+#define kSecondAppearanceOffset -(kTopBarHeight + 52)
+#define kThirdAppearanceOffset -(kTopBarHeight + 57)
 
 #define kLateralMotionDistance 10
-#define kStartLateralMotionOffset -124
+#define kStartLateralMotionOffset -(kTopBarHeight + 60)
 
 #define kNumberOfLabels 3
 #define kLabelOffsetY (-(kTriggerAreaHeight - kLabelHeight)/2 - kLabelHeight) //-50
@@ -59,6 +62,9 @@
 
 - (void)setup {
     
+    self.userInteractionEnabled = YES;
+    self.scrollEnabled = YES;
+    
     self.delegate = self;
     
     self.content = [[UIView alloc] initWithFrame:self.frame];
@@ -71,6 +77,7 @@
     firstStar.alpha = 0;
     firstStar.textColor = kTwinkleColor;
     firstStar.font = [UIFont systemFontOfSize:kDefaultFontSize];
+    firstStar.backgroundColor = [UIColor clearColor];
     [self addSubview:firstStar];
     
     thirdStar = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width*2/kNumberOfLabels, kLabelOffsetY, self.frame.size.width/kNumberOfLabels, kLabelHeight)];
@@ -79,6 +86,7 @@
     thirdStar.alpha = 0;
     thirdStar.textColor = kTwinkleColor;
     thirdStar.font = [UIFont systemFontOfSize:kDefaultFontSize];
+    thirdStar.backgroundColor = [UIColor clearColor];
     [self addSubview:thirdStar];
     
     secondStar = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width*1/kNumberOfLabels, kLabelOffsetY, self.frame.size.width/kNumberOfLabels, kLabelHeight)];
@@ -87,6 +95,7 @@
     secondStar.alpha = 0;
     secondStar.textColor = kTwinkleColor;
     secondStar.font = [UIFont systemFontOfSize:kDefaultFontSize];
+    secondStar.backgroundColor = [UIColor clearColor];
     [self addSubview:secondStar];
 }
 
